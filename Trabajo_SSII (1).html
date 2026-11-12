@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ES">
+	<head>
+		<title> Algoritmo de Planificación Round Robin </title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<font face="Segoe UI, Roboto, Arial, sans-serif">
+
+		<h1> <font color="#2563eb"> Algoritmo de Planificación Round Robin (RR) </font> </h1>
+
+		<h2 id="indice"> <font color="#1e40af"> Índice </font> </h2>
+			<ol>
+				<li> <a href="#introduccion"> Introducción </a> </li>
+				<li> <a href="#definicion-formal"> Definición Formal </a> </li>
+				<li> <a href="#quantum"> El Concepto de Quantum </a> </li>
+				<li> <a href="#funcionamiento"> Funcionamiento Paso a Paso </a> </li>
+				<li> <a href="#ventajas-desventajas"> Ventajas y Desventajas </a> </li>
+				<li> <a href="#comparacion"> Comparación con otros algoritmos </a> </li>
+				<li> <a href="#variantes"> Variantes del Round Robin </a>
+					<ul type="square">
+						<li> <a href="#ejemplos-de-uso"> Ejemplos de uso </a> </li>
+					</ul>
+				</li>
+				<li> <a href="#conclusion"> Conclusión </a> </li>
+				<li> <a href="#webgrafia"> Webgrafía </a> </li>
+			</ol>
+
+		<h2 id="introduccion"> <font color="#1e40af"> 1. Introducción </font> </h2>
+			<p> El algoritmo Round Robin es un método de planificación de procesos utilizado en los sistemas operativos para administrar el uso de la CPU. Su objetivo es repartir el tiempo de ejecución entre todos los procesos de manera equitativa, evitando que alguno tenga que esperar demasiado para que lo atiendan. </p>
+			<p> Asigna a cada proceso un intervalo de tiempo, llamado quantum. Cuando un proceso termina su intervalo y todavía no ha acabado su ejecución, pasa al final de la cola y se atiende al siguiente. </p>
+			<p> Los procesos se realizan de forma circular y ordenada. </p>
+			<p> En conclusión, el algoritmo es sencillo, organizado y eficiente para gestionar diferentes procesos, ya que garantiza que todos tengan la oportunidad de utilizar el procesador. </p>
+			<a href="#indice"> Volver al índice </a>
+
+		<h2 id="definicion-formal"> <font color="#1e40af"> 2. Definición Formal </font> </h2>
+			<p> Formalmente, se define como un algoritmo basado en una cola <font color="#2563eb"><b>FIFO (First-In, First-Out)</b></font> de procesos listos. El planificador recorre la cola asignando el procesador a cada proceso por un intervalo de tiempo llamado <b>quantum</b>. Si el proceso no termina en su turno, se genera una interrupción por reloj, se realiza un cambio de contexto y el proceso regresa al final de la cola. Es decir es un método o formato de distribución en el que un conjunto de elementos, participantes o procesos se turnan o se enfrentan de manera equitativa, cíclica y ordenada. </p>
+			<a href="#indice"> Volver al índice </a>
+
+		<h2 id="quantum"> <font color="#1e40af"> 3. El Concepto de Quantum </font> </h2>
+			<p> El concepto de quantum define la unidad mínima e indivisible de una magnitud física. En informática y sistemas operativos, estos son los impactos de su tamaño en la CPU: </p>
+				<ul>
+					<li> <b>Quantum grande:</b> El algoritmo se degrada y se comporta como un <i>FCFS (First-Come, First-Served)</i>. </li>
+					<li> <b>Quantum pequeño:</b> Incrementa drásticamente la sobrecarga (overhead) debido a los excesivos cambios de contexto. </li>
+				</ul>
+			<a href="#indice"> Volver al índice </a>
+
+		<h2 id="funcionamiento"> <font color="#1e40af"> 4. Funcionamiento Paso a Paso </font> </h2>
+			<ol>
+				<li> Los procesos listos se colocan en una cola, en el orden en que llegan. </li>
+				<li> El planificador toma el primer proceso de la cola y le asigna la CPU durante un quantum. </li>
+				<li> Si el proceso termina antes de que acabe su quantum, libera la CPU y sale de la cola. </li>
+				<li> Si no termina, se produce una interrupción por reloj, se realiza un cambio de contexto y el proceso vuelve al final de la cola con el tiempo que le queda. </li>
+				<li> El planificador toma el siguiente proceso de la cola y se repite todo hasta que la cola queda vacía. </li>
+			</ol>
+			<a href="#indice"> Volver al índice </a>
+
+		<h2 id="ventajas-desventajas"> <font color="#1e40af"> 5. Ventajas y Desventajas </font> </h2>
+			<table border="1" cellspacing="0" cellpadding="8" width="100%">
+				<tr bgcolor="#f1f5f9">
+					<th align="left"> Ventajas </th>
+					<th align="left"> Desventajas </th>
+				</tr>
+				<tr>
+					<td> Reparte el tiempo de CPU equitativamente entre los procesos. </td>
+					<td> El rendimiento depende del tamaño del quantum elegido. </td>
+				</tr>
+				<tr>
+					<td> Ofrece un buen tiempo de respuesta, especialmente en sistemas interactivos. </td>
+					<td> Un quantum demasiado pequeño aumenta los cambios de contexto y la sobrecarga. </td>
+				</tr>
+				<tr>
+					<td> Evita que un proceso monopolice la CPU. </td>
+					<td> Un quantum demasiado grande hace que se comporte como FCFS. </td>
+				</tr>
+				<tr>
+					<td> Es sencillo de implementar mediante una cola de procesos. </td>
+					<td> El tiempo medio de retorno suele ser mayor que en SJF. </td>
+				</tr>
+			</table>
+			<br>
+			<a href="#indice"> Volver al índice </a>
+
+		<h2 id="comparacion"> <font color="#1e40af"> 6. Comparación con otros algoritmos </font> </h2>
+			<table border="1" cellspacing="0" cellpadding="8" width="100%">
+				<tr align="center" bgcolor="#f1f5f9">
+					<th> Modelo </th>
+					<th> FCFS </th>
+					<th> SJF </th>
+					<th> SRTF </th>
+					<th> RR </th>
+					<th> Colas Multinivel </th>
+				</tr>
+				<tr align="center">
+					<th bgcolor="#f1f5f9"> Criterio </th>
+					<td> Orden de llegada </td>
+					<td> Trabajo más corto </td>
+					<td> Menor tiempo restante </td>
+					<td> Turnos iguales </td>
+					<td> Colas Multinivel </td>
+				</tr>
+				<tr align="center">
+					<th bgcolor="#f1f5f9"> ¿Interrumpe el proceso en marcha? </th>
+					<td colspan="2"> No </td>
+					<td> Sí </td>
+					<td> Sí, si acaba el turno </td>
+					<td> Depende de la cola </td>
+				</tr>
+				<tr align="center">
+					<th bgcolor="#f1f5f9"> Espera media </th>
+					<td> Alta </td>
+					<td> Muy Baja </td>
+					<td> La más Baja </td>
+					<td> Media </td>
+					<td> Depende del diseño </td>
+				</tr>
+				<tr align="center">
+					<th bgcolor="#f1f5f9"> Tiempo hasta empezar </th>
+					<td> Largo </td>
+					<td> Medio </td>
+					<td> Corto para los cortos </td>
+					<td> Corto para todos </td>
+					<td> Corto en la cola principal </td>
+				</tr>
+				<tr align="center">
+					<th bgcolor="#f1f5f9"> Inconvenientes </th>
+					<td> Es justo por orden, pero los trabajos largos pueden bloquear </td>
+					<td colspan="2"> Pueden esperar demasiado los largos </td>
+					<td> La más justa </td>
+					<td> Puede dejar esperando demasiado a la cola baja </td>
+				</tr>
+				<tr align="center">
+					<th bgcolor="#f1f5f9"> Dificultad </th>
+					<td> Muy Fácil </td>
+					<td> Media </td>
+					<td> Alta </td>
+					<td> Fácil </td>
+					<td> La más alta </td>
+				</tr>
+			</table>
+			<br>
+			<a href="#indice"> Volver al índice </a>
+
+		<h2 id="variantes"> <font color="#1e40af"> 7. Variantes del Round Robin </font> </h2>
+			<ul type="square">
+				<li> <b>Weighted Round Robin:</b> Asigna peso o capacidad a cada servidor. Los equipos más potentes reciben un mayor número de procesos. </li>
+				<li> <b>Round-Robin Egoísta (Selfish Round-Robin):</b> Emplea dos colas diferenciadas (procesos aceptados y procesos nuevos) para equilibrar la prioridad entre los trabajos que ya llevan tiempo en el sistema y los que van llegando. </li>
+				<li> <b>Dynamic Round Robin (DRR):</b> En lugar de usar un quantum fijo para todo el sistema, recalcula el tamaño del quantum dinámicamente en cada ciclo. Esto reduce los cambios de contexto innecesarios. </li>
+			</ul>
+
+			<h3 id="ejemplos-de-uso"> <font color="#1e40af"> 7.1 Ejemplos de uso </font> </h3>
+				<ol type="I">
+					<li> <b>Planificación de procesos (CPU):</b> Evita que una tarea pesada congele la pantalla y hace que el sistema responda al instante a tus clics. Si un programa como un vídeo no termina en su tiempo asignado (entre 10 y 100 milisegundos), el sistema lo pausa, guarda su estado y pasa al siguiente proceso de la cola, por ejemplo, detectar que moviste el ratón. </li>
+					<li> <b>Balanceo de carga en servidores web (Cloud):</b> Cuando entras a plataformas masivas como Netflix, Amazon o Google, no te conectas a una sola computadora sino a miles de servidores trabajando juntos y, mediante Round Robin, lo que se hace es alternar el uso para que no haya sobrecarga. Sobre todo se usa el Weighted Round Robin, porque si un servidor es más potente recibirá más peticiones que otro menos potente. </li>
+					<li> <b>Redes Wi-Fi y routers (Airtime Fairness):</b> Los routers modernos aplican Round Robin al tiempo de transmisión (Airtime). En lugar de dejar que un móvil antiguo acapare la señal Wi-Fi durante mucho tiempo para enviar un dato, el router da turnos iguales de tiempo de conexión a cada dispositivo conectado, manteniendo la red fluida para todos. </li>
+				</ol>
+			<a href="#indice"> Volver al índice </a>
+
+		<h2 id="conclusion"> <font color="#1e40af"> 8. Conclusión </font> </h2>
+			<p> Round Robin destaca por ser un algoritmo sencillo y justo: todos los procesos reciben turnos iguales de CPU y ninguno la monopoliza, lo que da buenos tiempos de respuesta en sistemas interactivos. Su punto débil es que depende del tamaño del quantum, y frente a algoritmos como SJF o SRTF suele tener un tiempo medio de espera mayor. Las variantes y sus usos en procesadores, servidores y redes muestran que la idea de repartir turnos de forma equitativa sigue siendo útil hoy en día. </p>
+			<a href="#indice"> Volver al índice </a>
+
+		<h2 id="webgrafia"> <font color="#1e40af"> 9. Webgrafía </font> </h2>
+			<ul>
+				<li><a href="https://es.wikipedia.org/wiki/Planificaci%C3%B3n_Round-robin" target="_blank">Planificación Round-robin - Wikipedia</a> (Definición general y conceptos básicos).</li>
+				<li><a href="https://www.geeksforgeeks.org/operating-systems/round-robin-scheduling-in-operating-system/" target="_blank">Round Robin Scheduling in Operating System - GeeksforGeeks</a> (Funcionamiento detallado y ejemplos).</li>
+				<li><a href="https://keepcoding.io/blog/la-logica-round-robin-en-programacion/" target="_blank">La lógica Round Robin en programación - KeepCoding</a> (Aplicación práctica y ejemplo paso a paso).</li>
+			</ul>
+			<a href="#indice"> Volver al índice </a>
+
+		</font>
+	</body>
+</html>
